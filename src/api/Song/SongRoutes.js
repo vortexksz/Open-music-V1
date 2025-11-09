@@ -1,28 +1,29 @@
-const SongRoutes = (hadnler) => [
+const SongRoutes = (handler) => [
     {
         method: 'POST',
         path: '/songs',
-        handler:
-    }
+        handler: handler.postSongHandler,
+    },
     {
         method: 'GET',
         path: '/songs',
-        hadnler:
-    }
+        handler: handler.getSongHandler,
+    },
     {
         method: 'GET',
-        path: '/songs{id}',
-        handler:
-    }
+        path: '/songs/{id}',
+        handler: handler.getSongByIdHandler,
+    },
     {
-        method :'PUT',
-        path: '/songs{id}',
-        handler:
-    }
+        method: 'PUT',
+        path: '/songs/{id}',
+        handler: handler.putSongByIdHandler,
+    },
     {
         method: 'DELETE',
-        path: '/songs{id}',
-        hadnler:  
+        path: '/songs/{id}',
+        handler: handler.deleteSongByIdHandler,
+    },
+];
 
-    }
-]
+module.exports = SongRoutes;
