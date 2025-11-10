@@ -2,17 +2,17 @@ const AlbumRoutes = (handler) => [
   {
     method: 'POST',
     path: '/albums',
-    handler: handler.postAlbumHandler, // postNoteHandler hanya menerima dan menyimpan "satu" note.
+    handler: handler.postAlbumHandler, 
   },
   {
     method: 'GET',
     path: '/albums/{id}',
-    handler: handler.getAlbumByIdHandler, // getNoteByIdHandler mengembalikan "satu" note.
+    handler: handler.getAlbumByIdHandler, 
   },
   {
     method: 'PUT',
     path: '/albums/{id}',
-    handler: handler.putAlbumByIdHandler, // putNoteByIdHandler hanya menerima dan mengubah "satu" note.
+    handler: handler.putAlbumByIdHandler, 
   },
   {
     method: 'DELETE',
