@@ -98,6 +98,21 @@ class PlaylistsService {
             throw new NotFoundError('Playlist tidak ditemukan');
         }
     }
+
+    async verifyPlaylistAccess(playlistId, userId) {
+        await this.verifyPlaylistExist(playlistId);
+
+        const query = {
+            text: 'SELECT id FROM playlists WHERE id = $1 AND owner = $2',
+            values: [playlistId, userId],
+        };
+
+        const result = await this._pool.query(query);
+
+        if (!result.rows.length) {
+            throw new NotFoundError('Anda tidak berhak mengakses playlist ini');
+        }
+    }
 }
 
 module.exports = PlaylistsService;
