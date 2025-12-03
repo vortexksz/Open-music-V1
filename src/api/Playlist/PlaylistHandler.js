@@ -33,10 +33,18 @@ class PlaylistHandler {
                 response.code(error.statusCode);
                 return response;
             }
+
+            const response = h.response({
+                status: 'error',
+                message: 'Maaf, terjadi kegagalan pada server kami.',
+            });
+            response.code(500);
+            console.error(error);
+            return response;
         }
     }
 
-    async getPlaylistsHandler(request) {
+    async getPlaylistsHandler(request, h) {
         try {
             const { id: credentialId } = request.auth.credentials;
             const playlists = await this._playlistService.getPlaylists(credentialId);
@@ -58,32 +66,15 @@ class PlaylistHandler {
                 response.code(error.statusCode);
                 return response;
             }
+
+            const response = h.response({
+                status: 'error',
+                message: 'Maaf, terjadi kegagalan pada server kami.',
+            });
+            response.code(500);
+            console.error(error);
+            return response;
         }
-    }
-
-    async deleteSongFromPlaylistHandler(request) {
-        try {
-            const { id } = request.params;
-            const { id: credentialId } = request.auth.credentials;
-
-            await this._service.verifyPlaylistOwner(id, credentialId);
-            await this._.deletePlaylist(id, credentialId);
-
-            return {
-                status: 'success',
-                message: 'Playlist berhasil dihapus',
-            };
-        } catch (error) {
-            if (error instanceof ClientError) {
-                const response = h.response({
-                    status: 'fail',
-                    message: error.message,
-                });
-                response.code(error.statusCode);
-                return response;
-            }
-        }
-
     }
 
     async postSongToPlaylistHandler(request, h) {
@@ -113,6 +104,14 @@ class PlaylistHandler {
                 response.code(error.statusCode);
                 return response;
             }
+
+            const response = h.response({
+                status: 'error',
+                message: 'Maaf, terjadi kegagalan pada server kami.',
+            });
+            response.code(500);
+            console.error(error);
+            return response;
         }   
     }
 
@@ -132,7 +131,7 @@ class PlaylistHandler {
             });
             response.code(200);
             return response;
-        }catch (error) {
+        } catch (error) {
             if (error instanceof ClientError) {
                 const response = h.response({
                     status: 'fail',
@@ -141,6 +140,14 @@ class PlaylistHandler {
                 response.code(error.statusCode);
                 return response;
             }
+
+            const response = h.response({
+                status: 'error',
+                message: 'Maaf, terjadi kegagalan pada server kami.',
+            });
+            response.code(500);
+            console.error(error);
+            return response;
         }
     }
 
@@ -168,6 +175,14 @@ class PlaylistHandler {
                 response.code(error.statusCode);
                 return response;
             }
+
+            const response = h.response({
+                status: 'error',
+                message: 'Maaf, terjadi kegagalan pada server kami.',
+            });
+            response.code(500);
+            console.error(error);
+            return response;
         }
     }
 
