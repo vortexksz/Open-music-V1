@@ -8,3 +8,4 @@ const AlbumPayloadSchema = Joi.object({
 
 
 module.exports = { AlbumPayloadSchema };
+

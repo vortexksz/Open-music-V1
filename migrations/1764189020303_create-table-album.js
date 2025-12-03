@@ -1,5 +1,8 @@
-exports.up = (pgm) => {
-  pgm.createTable('albums', {
+export const shorthands = undefined;
+
+
+export const up = (pgm) => {
+    pgm.createTable('albums', {
     id: {
       type: 'VARCHAR(50)',
       primaryKey: true,
@@ -25,6 +28,7 @@ exports.up = (pgm) => {
   });
 };
 
-exports.down = (pgm) => {
-  pgm.dropTable('albums');
+
+export const down = (pgm) => {
+    pgm.dropTable('albums');
 };

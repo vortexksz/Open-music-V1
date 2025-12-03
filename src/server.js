@@ -1,18 +1,40 @@
 require('dotenv').config();
 
+
+//v1
 const Hapi = require('@hapi/hapi');
 const albums = require('./api/Album');
 const songs = require('./api/Song');
 const AlbumsService = require('./services/postgres/AlbumsService');
 const SongService = require('./services/postgres/SongsService');
 const AlbumsValidator = require('./validator/album');
-const ClientError = require('./exceptions/ClientError');
 const SongsValidator = require('./validator/song');
+const ClientError = require('./exceptions/ClientError');
+
+//v2
+const playlists = require('./api/Playlist');
+const PlaylistValidator = require('./validator/playlist');
+
+const authentications = require('./api/Authentications');
+const AuthenticationService = require('./services/postgres/AuthenticationService');
+const AuthenticationsValidator = require('./validator/authentications');
+
+const users = require('./api/users');
+const UsersValidator = require('./validator/user');
+const UsersService = require('./services/postgres/UsersService');
+const TokenManager = require('./api/tokenize/TokenManager');
+const PlaylistService = require('./services/postgres/PlaylistsService');
+
 
 
 const init = async () => {
   const albumsService = new AlbumsService();
   const songsService = new SongService();
+  const authenticationService = new AuthenticationService();
+  const usersService = new UsersService();
+  const playlistService = new PlaylistService();
+  const tokenManager = TokenManager;
+
   const server = Hapi.server({
     port: process.env.PORT,
     host: process.env.HOST,
@@ -25,6 +47,15 @@ const init = async () => {
 
   await server.register([
     {
+      plugin: authentications,
+      options: {
+        authenticationsService: authenticationService,
+        usersService,
+        tokenManager,
+        validator: AuthenticationsValidator,
+      },
+    },
+    {
       plugin: albums,
       options: {
         service: albumsService,
@@ -36,6 +67,20 @@ const init = async () => {
       options: {
         service: songsService,
         validator: SongsValidator,
+      },
+    },
+    {
+      plugin: users,
+      options: {
+        service: usersService,
+        validator: UsersValidator,
+      },
+    },
+    {
+      plugin: playlists,
+      options: {
+        service: playlistService,
+        validator: PlaylistValidator,
       },
     },
   ]);
