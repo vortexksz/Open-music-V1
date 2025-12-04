@@ -10,7 +10,7 @@ const PlaylistsValidator = {
         }
     },
 
-    validatePostPlaylistPayloadByIdSongs: (payload) => {
+    validatePlaylistSongPayload: (payload) => {
         const validationResult = PostPlaylistPayloadByIdSongsSchema.validate(payload);
 
         if (validationResult.error) {
