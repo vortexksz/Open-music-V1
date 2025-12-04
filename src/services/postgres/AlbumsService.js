@@ -57,6 +57,8 @@ class AlbumsService {
             year: album.year,
             songs: songs,
         };
+
+        return formattedAlbum;
     }
 
     async editAlbumById(id, { name, year }) {

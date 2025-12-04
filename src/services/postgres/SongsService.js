@@ -28,7 +28,7 @@ class SongService {
     }
 
     async getSongs({ title, performer }) {
-        const condisions = [];
+        const conditions = [];
         const values = [];
 
         let query = {
@@ -38,19 +38,19 @@ class SongService {
 
         if (title) {
             values.push(`%${title}%`);
-            condisions.push(`title ILIKE $${values.length}`);
+            conditions.push(`title ILIKE $${values.length}`);
         }
 
         if (performer) {
             values.push(`%${performer}%`);
-            condisions.push(`performer ILIKE $${values.length}`);
+            conditions.push(`performer ILIKE $${values.length}`);
         }
 
         if (conditions.length > 0) {
             query.text += ` WHERE ${conditions.join(' AND ')}`;
         }
 
-        const result = await this._pool.query({text: query, values});
+        const result = await this._pool.query(query);
 
         return result.rows.map(mapDBToModelSong);
     }
