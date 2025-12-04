@@ -1,6 +1,7 @@
 const { nanoid } = require('nanoid');
 const InvariantError = require('../../exceptions/InvariantError');
 const NotFoundError = require('../../exceptions/NotFoundError');
+const AuthenticationError = require('../../exceptions/AuthenticationError');
 const { Pool } = require('pg');
 
 class PlaylistsService {
@@ -110,7 +111,7 @@ class PlaylistsService {
         const result = await this._pool.query(query);
 
         if (!result.rows.length) {
-            throw new NotFoundError('Anda tidak berhak mengakses playlist ini');
+            throw new AuthenticationError('Anda tidak berhak mengakses playlist ini');
         }
     }
 }

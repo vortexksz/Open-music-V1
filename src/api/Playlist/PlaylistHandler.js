@@ -1,9 +1,12 @@
+const autoBind = require('auto-bind');
 const ClientError = require('../../exceptions/ClientError');
 
 class PlaylistHandler {
     constructor(playlistService, playlistsValidator) {
         this._playlistService = playlistService;
         this._playlistsValidator = playlistsValidator;
+
+        autoBind(this);
     }
 
     async postPlaylistHandler(request, h) {

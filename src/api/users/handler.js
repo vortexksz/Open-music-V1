@@ -1,9 +1,12 @@
+const autoBind = require('auto-bind');
 const ClientError = require('../../exceptions/ClientError');
 
 class UsersHandler {
     constructor(service, validator) {
         this.service = service;
         this.validator = validator;
+
+        autoBind(this);
     }
 
     async postUserHandler(request, h) {
