@@ -5,6 +5,7 @@ class PlaylistHandler {
     constructor(playlistService, playlistsValidator) {
         this._playlistService = playlistService;
         this._playlistsValidator = playlistsValidator;
+        this._songService = playlistService._songService;
 
         autoBind(this);
     }
@@ -88,6 +89,8 @@ class PlaylistHandler {
             const { id: credentialId } = request.auth.credentials;
 
             await this._playlistService.verifyPlaylistAccess(id, credentialId);
+
+            await this._songService.getSongById(songId);
     
             await this._playlistService.addSongToPlaylist(id, songId);
 
