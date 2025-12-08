@@ -2,7 +2,7 @@ const autoBind = require('auto-bind');
 const ClientError = require('../../exceptions/ClientError');
 
 class PlaylistHandler {
-    constructor(playlistService, playlistsValidator) {
+    constructor(playlistService, playlistsValidator, songService) {
         this._playlistService = playlistService;
         this._playlistsValidator = playlistsValidator;
         this._songService = playlistService._songService;
