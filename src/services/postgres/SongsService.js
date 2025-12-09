@@ -50,6 +50,8 @@ class SongService {
             query.text += ` WHERE ${conditions.join(' AND ')}`;
         }
 
+        query.values = values;
+        
         const result = await this._pool.query(query);
 
         return result.rows.map(mapDBToModelSong);
