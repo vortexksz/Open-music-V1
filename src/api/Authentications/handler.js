@@ -1,5 +1,5 @@
-const autoBind = require('auto-bind');
-const ClientError = require('../../exceptions/ClientError');
+import autoBind from 'auto-bind';
+import ClientError from '../../exceptions/ClientError.js';
 
 class AuthenticationsHandler {
     constructor(authenticationsService, usersService, tokenManager, validator) {
@@ -166,4 +166,4 @@ class AuthenticationsHandler {
     }
 }
 
-module.exports = AuthenticationsHandler;
+export default AuthenticationsHandler;

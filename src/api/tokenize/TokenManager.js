@@ -1,4 +1,4 @@
-const Jwt = require('@hapi/jwt');
+import Jwt from '@hapi/jwt';
 
 const TokenManager = {
     generateAccessToken: (payload) => Jwt.token.generate(payload, process.env.ACCESS_TOKEN_KEY),
@@ -15,4 +15,4 @@ const TokenManager = {
     },     
 };
 
-module.exports = TokenManager;
+export default TokenManager;

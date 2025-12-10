@@ -49,5 +49,5 @@ const PlaylistRoutes = (handler) => [
     },
 ];
 
-module.exports = PlaylistRoutes;
+export default PlaylistRoutes;
 

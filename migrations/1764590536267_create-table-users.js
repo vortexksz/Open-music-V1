@@ -2,7 +2,7 @@
 export const shorthands = undefined;
 
 
-export const up = (pgm) => {
+exports.up = (pgm) => {
   pgm.createTable("users", {
     id: {
       type: "VARCHAR(50)",
@@ -25,7 +25,7 @@ export const up = (pgm) => {
 };
 
 
-export const down = (pgm) => {
+exports.down = (pgm) => {
   pgm.dropTable("users");
 };
 

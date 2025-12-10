@@ -1,7 +1,7 @@
-const PlaylistHandler = require('./PlaylistHandler');
-const PlaylistRoutes = require('./PlaylistRoutes');
+import PlaylistHandler from './PlaylistHandler.js';
+import PlaylistRoutes from './PlaylistRoutes.js';
 
-module.exports = {
+const playlists = {
     name: 'playlists',
     version: '1.0.0',
     register: async (server, { service, validator, songService }) => {
@@ -9,3 +9,5 @@ module.exports = {
         server.route(PlaylistRoutes(playlistHandler));
     },
 };
+
+export default playlists;

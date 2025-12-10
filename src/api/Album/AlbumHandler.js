@@ -1,5 +1,5 @@
-const autoBind = require('auto-bind');
-const ClientError = require('../../exceptions/ClientError');
+import autoBind from 'auto-bind';
+import ClientError from '../../exceptions/ClientError.js';
 
 class AlbumHandler {
   constructor(service, validator) {
@@ -147,4 +147,4 @@ class AlbumHandler {
   }    
 }
 
-module.exports = AlbumHandler;
+export default AlbumHandler;

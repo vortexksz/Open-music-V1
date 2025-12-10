@@ -1,9 +1,9 @@
-const { Pool } = require('pg');
-const { nanoid } = require('nanoid');
-const InvariantError = require('../../exceptions/InvariantError');
-const NotFoundError = require('../../exceptions/NotFoundError');
-const { mapDBToModelAlbum } = require('../../utils/indexAlbum');
-const { mapDBToModelSong } = require('../../utils/indexSong');
+import {Pool} from 'pg';
+import {nanoid} from 'nanoid';
+import InvariantError from '../../exceptions/InvariantError.js';
+import NotFoundError from '../../exceptions/NotFoundError.js';
+import {mapDBToModelAlbum} from '../../utils/indexAlbum.js';
+import {mapDBToModelSong} from '../../utils/indexSong.js';
 
 class AlbumsService {
     constructor(){
@@ -94,4 +94,4 @@ class AlbumsService {
 
 }
 
-module.exports = AlbumsService;
+export default AlbumsService;

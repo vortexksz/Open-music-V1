@@ -1,30 +1,31 @@
-require('dotenv').config();
+import 'dotenv/config';
+
 
 
 //v1
-const Hapi = require('@hapi/hapi');
-const albums = require('./api/Album');
-const songs = require('./api/Song');
-const AlbumsService = require('./services/postgres/AlbumsService');
-const SongService = require('./services/postgres/SongsService');
-const AlbumsValidator = require('./validator/album');
-const SongsValidator = require('./validator/song');
-const ClientError = require('./exceptions/ClientError');
+import Hapi from '@hapi/hapi';
+import albums from './api/Album/index.js';
+import songs from './api/Song/index.js';
+import AlbumsService from './services/postgres/AlbumsService.js';
+import SongService from './services/postgres/SongsService.js';
+import AlbumsValidator from './validator/album/index.js';
+import SongsValidator from './validator/song/index.js';
+import ClientError from './exceptions/ClientError.js';
 
 //v2
-const Jwt = require('@hapi/jwt');
-const playlists = require('./api/Playlist');
-const PlaylistValidator = require('./validator/playlist');
+import Jwt from '@hapi/jwt';
+import playlists from './api/Playlist/index.js';
+import PlaylistValidator from './validator/playlist/index.js';
 
-const authentications = require('./api/Authentications');
-const AuthenticationService = require('./services/postgres/AuthenticationService');
-const AuthenticationsValidator = require('./validator/authentications');
+import authentications from './api/Authentications/index.js';
+import AuthenticationService from './services/postgres/AuthenticationService.js';
+import AuthenticationsValidator from './validator/authentications/index.js';
 
-const users = require('./api/users');
-const UsersValidator = require('./validator/user');
-const UsersService = require('./services/postgres/UsersService');
-const TokenManager = require('./api/tokenize/TokenManager');
-const PlaylistService = require('./services/postgres/PlaylistsService');
+import users from './api/users/index.js';
+import UsersValidator from './validator/user/index.js';
+import UsersService from './services/postgres/UsersService.js';
+import TokenManager from './api/tokenize/TokenManager.js';
+import PlaylistService from './services/postgres/PlaylistsService.js';
 
 
 

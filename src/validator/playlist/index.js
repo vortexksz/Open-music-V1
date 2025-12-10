@@ -1,5 +1,5 @@
-const InvariantError = require('../../exceptions/InvariantError');
-const { PlaylistPayloadSchema, PlaylistPayloadSongsSchema } = require('./PlaylistSchema');
+import InvariantError from '../../exceptions/InvariantError.js';
+import {PlaylistPayloadSchema, PlaylistPayloadSongsSchema} from './PlaylistSchema.js';
 
 const PlaylistsValidator = {
     validatePostPlaylistPayload: (payload) => {
@@ -19,4 +19,4 @@ const PlaylistsValidator = {
     },
 };
 
-module.exports = PlaylistsValidator;
+export default PlaylistsValidator;

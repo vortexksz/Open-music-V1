@@ -1,9 +1,9 @@
-const { nanoid } = require('nanoid');
-const InvariantError = require('../../exceptions/InvariantError');
-const NotFoundError = require('../../exceptions/NotFoundError');
-const AuthenticationError = require('../../exceptions/AuthenticationError');
-const AuthorizationError = require('../../exceptions/AuthorizationError');
-const { Pool } = require('pg');
+import {nanoid} from 'nanoid';
+import InvariantError from '../../exceptions/InvariantError.js';
+import NotFoundError from '../../exceptions/NotFoundError.js';
+import AuthenticationError from '../../exceptions/AuthenticationError.js';
+import AuthorizationError from '../../exceptions/AuthorizationError.js';
+import {Pool} from 'pg';
 
 class PlaylistsService {
     constructor(pool){
@@ -148,4 +148,4 @@ class PlaylistsService {
     }
 }
 
-module.exports = PlaylistsService;
+export default PlaylistsService;

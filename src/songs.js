@@ -1,3 +1,3 @@
 const songs = [];
 
-module.exports = songs;
+export default songs;

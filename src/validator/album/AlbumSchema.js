@@ -1,4 +1,4 @@
-const Joi = require('joi');
+import Joi from 'joi';
 
 const AlbumPayloadSchema = Joi.object({
     name: Joi.string().required(),
@@ -7,5 +7,5 @@ const AlbumPayloadSchema = Joi.object({
 });
 
 
-module.exports = { AlbumPayloadSchema };
+export default AlbumPayloadSchema;
 

@@ -13,4 +13,4 @@ const mapDBToModelAlbum = ({
     updatedAt: updated_at,
 });
 
-module.exports = { mapDBToModelAlbum };
+export { mapDBToModelAlbum };

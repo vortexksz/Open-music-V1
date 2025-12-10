@@ -22,4 +22,4 @@ const mapDBToModelSong = ({
 
 });
 
-module.exports= { mapDBToModelSong };
+export { mapDBToModelSong };

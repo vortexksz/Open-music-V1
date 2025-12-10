@@ -1,7 +1,8 @@
-const AlbumHandler = require('./AlbumHandler');
-const AlbumRoutes = require('./AlbumRoutes');
+import AlbumHandler from './AlbumHandler.js';
+import AlbumRoutes from './AlbumRoutes.js';
 
-module.exports = {
+
+const albums = {
     name: 'albums',
     version: '1.0.0',
     register: async (server, { service, validator }) => {
@@ -9,3 +10,5 @@ module.exports = {
         server.route(AlbumRoutes(albumsHandler));
     },
 };
+
+export default albums;
