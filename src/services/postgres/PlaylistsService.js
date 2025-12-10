@@ -74,7 +74,7 @@ class PlaylistsService {
             values: [playlistId],
         };
 
-        const playlistResult = await this._pool.query(playlist);
+        const playlistResult = await this._pool.query(playlistQuery);
 
         if (!playlistResult.rows.length) {
             throw new NotFoundError('Playlist tidak ditemukan');
@@ -89,7 +89,7 @@ class PlaylistsService {
             values: [playlistId],
         };
 
-        const songsResult = await this._pool.query(songs);
+        const songsResult = await this._pool.query(songsQuery);
 
         const songs = songsResult.rows.map((song) => ({
             id: song.id,
