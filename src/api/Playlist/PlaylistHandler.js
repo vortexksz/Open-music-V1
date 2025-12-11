@@ -87,7 +87,7 @@ class PlaylistHandler {
 
         await this._playlistService.verifyPlaylistAccess(id, credentialId);
 
-        await this._playlistService.deleteAllSongsFromPlaylist(id);
+        await this._playlistService.deleteSongFromPlaylist(id);
 
         await this._playlistService.deletePlaylistById(id);
 
