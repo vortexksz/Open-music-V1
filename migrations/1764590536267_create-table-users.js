@@ -1,5 +1,5 @@
 
-export const shorthands = undefined;
+exports.shorthands = undefined;
 
 
 exports.up = (pgm) => {
