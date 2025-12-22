@@ -4,15 +4,15 @@ import { Pool } from 'pg';
 import amqp from 'amqplib';
 import MailSender from './MailSender.js';
 import Listener from './listener.js';
-import PlaylistsService from './PlaylistsService.js';
+import PlaylistService from './PlaylistService.js';
 
 const init = async () => {
   const pool = new Pool();
 
   try {
-    const playlistsService = new PlaylistsService(pool);
+    const playlistService = new PlaylistService(pool);
     const mailSender = new MailSender();
-    const listener = new Listener(playlistsService, mailSender);
+    const listener = new Listener(playlistService, mailSender);
 
     const connection = await amqp.connect(process.env.RABBITMQ_SERVER);
     const channel = await connection.createChannel();

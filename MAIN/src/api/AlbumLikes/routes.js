@@ -19,10 +19,7 @@ const AlbumLikeRoutes = (handler) => [
         method: 'GET',
         path: '/albums/{id}/likes',
         handler: handler.getAlbumLikesHandler,
-        options: {
-            auth: 'openmusic_jwt',
-        },
-    }
+    },
 ];
 
 export default AlbumLikeRoutes;

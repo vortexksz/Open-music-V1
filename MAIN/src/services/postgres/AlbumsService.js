@@ -102,6 +102,7 @@ class AlbumsService {
             name: album.name,
             year: album.year,
             songs: songs,
+            coverUrl: album.cover_url,
         };
 
         return formattedAlbum;
