@@ -37,9 +37,8 @@ import exports from './api/exports/index.js';
 import AlbumLikesService from './services/postgres/AlbumLikeService.js';
 import albumLikes from './api/AlbumLikes/index.js';
 import AlbumLikesValidator from './validator/albumLikes/index.js';
-import uploads from './api/Uploads/index.js';
+import uploads from './api/uploads/index.js';
 import UploadsValidator from './validator/uploads/index.js';
-import UploadsService from './services/storage/StorageService.js';
 
 
 const init = async () => {
@@ -137,7 +136,7 @@ const init = async () => {
     {
       plugin: exports,
       options: {
-        producerService: new ProducerService(),
+        producerService,
         playlistService,
         validator: ExportsValidator,
       },
