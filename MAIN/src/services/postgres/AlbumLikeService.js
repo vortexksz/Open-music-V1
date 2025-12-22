@@ -22,7 +22,7 @@ class AlbumLikeService {
         }
     }
 
-    async unlikeAlbum(albumId, userId) {
+    async addAlbumLike(albumId, userId) {
         try {
             await this._albumService.getAlbumById(albumId);
         } catch (error) {

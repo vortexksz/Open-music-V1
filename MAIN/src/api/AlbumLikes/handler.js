@@ -13,7 +13,9 @@ class AlbumLikesHandler {
         const { id: albumId } = request.params;
         const { id: userId } = request.auth.credentials;
 
-        const message = await this._service.likeAlbum(albumId, userId);
+        await this._albumService.getAlbumById(albumId, userId);
+
+        const message = await this._service.addAlbumLike(albumId, userId);
 
         const response = h.response({
             status: 'success',
