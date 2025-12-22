@@ -37,7 +37,7 @@ class AlbumsService {
         };
         const result = await this._pool.query(oldCoverQuery);
 
-        if (!result.rowsCount) {
+        if (!result.rowCount) {
             throw new NotFoundError('Gagal memperbarui cover album. Id tidak ditemukan');
         }
 
@@ -95,14 +95,12 @@ class AlbumsService {
 
         const songsResult = await this._pool.query(songsQuery);
 
-        const songs = songsResult.rows.map(mapDBToModelSong);
-
         const formattedAlbum = {
             id: album.id,
             name: album.name,
             year: album.year,
-            songs: songs,
-            coverUrl: album.cover_url,
+            coverUrl: album.coverUrl ?? null,
+            songs: songsResult.rows.map(mapDBToModelSong),
         };
 
         return formattedAlbum;

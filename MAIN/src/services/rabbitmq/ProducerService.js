@@ -2,7 +2,7 @@ import amqp  from 'amqplib';
 
 class ProducerService {
     constructor(rabbitmqUrl) {
-        this.server = rabbitmqUrl || 'amqp://localhost:5672';
+        this.server = rabbitmqUrl || process.env.RABBITMQ_SERVER;
         this.connection = null;
         this.channel = null;
     }
@@ -13,7 +13,7 @@ class ProducerService {
         this.channel = await this.connection.createChannel();
     }
 
-    async sendMassage(queue, message) {
+    async sendMessage(queue, message) {
         try {
             await this.connect();
 
