@@ -4,6 +4,7 @@ import 'dotenv/config';
 
 //v1
 import Hapi from '@hapi/hapi';
+import inert from '@hapi/inert';
 import albums from './api/Album/index.js';
 import songs from './api/Song/index.js';
 import AlbumsService from './services/postgres/AlbumsService.js';
@@ -27,6 +28,18 @@ import UsersService from './services/postgres/UsersService.js';
 import TokenManager from './api/tokenize/TokenManager.js';
 import PlaylistService from './services/postgres/PlaylistsService.js';
 
+//v3
+import ProducerService from './services/rabbitmq/ProducerService.js';
+import StorageService from './services/storage/StorageService.js';
+import CacheService from './services/redis/CacheService.js';
+import ExportsValidator from './validator/exports/index.js';
+import exports from './api/exports/index.js';
+import AlbumLikesService from './services/postgres/AlbumLikeService.js';
+import albumLikes from './api/AlbumLikes/index.js';
+import AlbumLikesValidator from './validator/albumLikes/index.js';
+import uploads from './api/Uploads/index.js';
+import UploadsValidator from './validator/uploads/index.js';
+import UploadsService from './services/storage/StorageService.js';
 
 
 const init = async () => {
@@ -36,6 +49,15 @@ const init = async () => {
   const usersService = new UsersService();
   const playlistService = new PlaylistService();
   const tokenManager = TokenManager;
+  const cacheService = new CacheService();
+
+  const albumLikesService = new AlbumLikesService(
+    albumsService,
+    cacheService,
+  );
+
+  const producerService = new ProducerService();
+  const storageService = new StorageService('uploads/images');
 
   const server = Hapi.server({
     port: process.env.PORT,
@@ -71,6 +93,9 @@ const init = async () => {
   });
 
   await server.register([
+    {
+      plugin: inert,
+    },
     {
       plugin: authentications,
       options: {
@@ -109,6 +134,30 @@ const init = async () => {
         songService: songsService,
       },
     },
+    {
+      plugin: exports,
+      options: {
+        producerService: new ProducerService(),
+        playlistService,
+        validator: ExportsValidator,
+      },
+    },
+    {
+      plugin: albumLikes,
+      options: {
+        albumLikesService,
+        albumsService,
+        validator: AlbumLikesValidator,
+      },
+    },
+    {
+      plugin: uploads,
+      options: {
+        storageService,
+        albumsService,
+        validator: UploadsValidator,
+      },
+    }
   ]);
 
   

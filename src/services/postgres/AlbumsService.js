@@ -4,6 +4,8 @@ import InvariantError from '../../exceptions/InvariantError.js';
 import NotFoundError from '../../exceptions/NotFoundError.js';
 import {mapDBToModelAlbum} from '../../utils/indexAlbum.js';
 import {mapDBToModelSong} from '../../utils/indexSong.js';
+import fs from 'fs';
+import path from 'path';
 
 class AlbumsService {
     constructor(){
@@ -26,6 +28,50 @@ class AlbumsService {
 
         return result.rows[0].id;
 
+    }
+
+    async addAlbumCover(id, coverUrl) {
+        const oldCoverQuery = {
+            text: 'SELECT cover_url FROM albums WHERE id = $1',
+            values: [id],
+        };
+        const result = await this._pool.query(oldCoverQuery);
+
+        if (!result.rowsCount) {
+            throw new NotFoundError('Gagal memperbarui cover album. Id tidak ditemukan');
+        }
+
+        const oldCoverUrl = result.rows[0].cover_url;
+
+        const updateCoverQuery = {
+            text: 'UPDATE albums SET cover_url = $1 WHERE id = $2 RETURNING id',
+            values: [coverUrl, id],
+        };
+
+        const updateResult =await this._pool.query(updateCoverQuery);
+
+        if (!updateResult.rows.length) {
+            throw new NotFoundError('Gagal memperbarui cover album. Id tidak ditemukan');
+        }
+
+        if (oldCoverUrl) {
+            const filename = oldCoverUrl.split('/').pop();
+            const filePath = path.resolve(
+                process.cwd(),
+                'uploads',
+                'images',
+                filename,
+            );
+
+            try {
+                if (fs.existsSync(filePath)) {
+                    fs.unlinkSync(filePath);
+                }
+            } catch (error) {
+                console.error('Error deleting old cover image:', error);
+            }
+            
+        }
     }
 
     async getAlbumById(id) {
