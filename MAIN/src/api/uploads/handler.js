@@ -1,9 +1,9 @@
 import autoBind from "auto-bind";
 
 class UploadsHandler {
-    constructor(albumsService, storageService, validator) {
-        this._albumsService = albumsService;
+    constructor( storageService, albumsService, validator) {
         this._storageService = storageService;
+        this._albumsService = albumsService;
         this._validator = validator;
 
         autoBind(this);
@@ -13,7 +13,7 @@ class UploadsHandler {
         const { id: albumId } = request.params;
         const { cover } = request.payload;
 
-        this._validator.validateUploadpayload(cover.hapi.headers);
+        this._validator.validateUploadPayload(cover.hapi.headers);
 
         await this._albumsService.getAlbumById(albumId);
         const filename = await this._storageService.writeFile(cover, cover.hapi);

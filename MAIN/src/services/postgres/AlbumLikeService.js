@@ -13,6 +13,7 @@ class AlbumLikeService {
     async verifyAlbumLike(albumId, userId) {
         const query = {
             text : 'SELECT id FROM user_album_likes WHERE album_id = $1 AND user_id = $2',
+            values: [albumId, userId],
         };
 
         const result = await this._pool.query(query);
