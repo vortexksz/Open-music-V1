@@ -10,12 +10,12 @@ class AlbumLikesHandler {
     }
 
     async postAlbumLikeHandler(request, h) {
-        const { id: albumId } = request.params;
         const { id: userId } = request.auth.credentials;
+        const { id: albumId } = request.params;
 
-        await this._albumService.getAlbumById(albumId, userId);
+        
 
-        const message = await this._service.addAlbumLike(albumId, userId);
+        const message = await this._service.addAlbumLike(userId, albumId);
 
         const response = h.response({
             status: 'success',
@@ -26,12 +26,12 @@ class AlbumLikesHandler {
     }
 
     async deleteAlbumLikeHandler(request, h) {
-        const { id: albumId } = request.params;
         const { id: userId } = request.auth.credentials;
+        const { id: albumId } = request.params;
 
         await this._albumService.getAlbumById(albumId, userId);
 
-        const message = await this._service.deleteAlbumLike(albumId, userId);
+        const message = await this._service.deleteAlbumLike(userId, albumId);
 
         return {
             status: 'success',

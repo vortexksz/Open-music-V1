@@ -10,7 +10,7 @@ class AlbumLikeService {
         this._cacheService = cacheService;
     }
 
-    async verifyAlbumLike(albumId, userId) {
+    async verifyAlbumLike(userId, albumId) {
         const query = {
             text : 'SELECT id FROM user_album_likes WHERE album_id = $1 AND user_id = $2',
             values: [albumId, userId],
@@ -23,18 +23,18 @@ class AlbumLikeService {
         }
     }
 
-    async addAlbumLike(albumId, userId) {
+    async addAlbumLike(userId, albumId) {
         try {
             await this._albumService.getAlbumById(albumId);
         } catch (error) {
             throw new NotFoundError('Album tidak ditemukan');
         }
-        await this.verifyAlbumLike(albumId, userId);
+        await this.verifyAlbumLike(userId, albumId);
 
         const id = `like-${nanoid(16)}`;
         const query = {
             text: 'INSERT INTO user_album_likes VALUES($1, $2, $3) RETURNING id',
-            values: [id, albumId, userId],
+            values: [id, userId, albumId],
         };
 
         const { rowCount } = await this._pool.query(query);
@@ -43,14 +43,14 @@ class AlbumLikeService {
             throw new InvariantError('Gagal menyukai album');
         }
 
-        const massage = 'Album berhasil disukai';
+        const message = 'Album berhasil disukai';
 
         await this._cacheService.delete(`album_likes:${albumId}`);
 
-        return massage;
+        return message;
     }
 
-    async deleteAlbumLike(albumId, userId) {
+    async deleteAlbumLike(userId, albumId) {
         const query = {
             text: 'DELETE FROM user_album_likes WHERE album_id = $1 AND user_id = $2 RETURNING id',
             values: [albumId, userId],
@@ -62,18 +62,18 @@ class AlbumLikeService {
             throw new NotFoundError('Gagal batal menyukai album');
         }
 
-        const massage = 'Album berhasil batal disukai';
+        const message = 'Album berhasil batal disukai';
 
         await this._cacheService.delete(`album_likes:${albumId}`);
 
-        return massage;
+        return message;
     }
 
     async getAlbumLikes(albumId) {
         try {
             const result = await this._cacheService.get(`album_likes:${albumId}`);
             return {
-                likes: JSON.parse(result),
+                likes: Number(JSON.parse(result)),
                 fromCache: true,
             };
         } catch (error) {
@@ -83,13 +83,17 @@ class AlbumLikeService {
             };
 
             const result = await this._pool.query(query);
+        
+            const likesCount = Number(result.rows[0].likes); 
+
+            await this._cacheService.set(`album_likes:${albumId}`, JSON.stringify(likesCount));
 
             return {
-                likes: result.rows[0].likes,
+                likes: likesCount, 
                 fromCache: false,
             };
         }
-    }
+    }   
 }
 
 export default AlbumLikeService;
