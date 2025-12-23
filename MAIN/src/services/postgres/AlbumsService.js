@@ -99,7 +99,7 @@ class AlbumsService {
             id: album.id,
             name: album.name,
             year: album.year,
-            coverUrl: album.cover_url ?? null,
+            coverUrl: album.coverUrl ?? null,
             songs: songsResult.rows.map(mapDBToModelSong),
         };
 
